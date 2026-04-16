@@ -1,7 +1,7 @@
-# DynaVis: Benchmark for Visual Reasoning in Dynamic Environments
+# DynaVisRR: Benchmark for Visual Reasoning in Dynamic Environments
 
 ---
-**DynaVis-Billiards** is a procedural dataset generator for evaluating whether a model can combine:
+**DynaVisR-Billiards** is a procedural dataset generator for evaluating whether a model can combine:
 
 1. **visual trajectory simulation**,
 2. **bounce-indexed state updates**, and
@@ -14,7 +14,7 @@ and recover the bottom-to-top order of the visible overlapping subset.
 
 ## Camera-ready metadata
 
-- **Title:** DynaVis-Billiards: Reproducible Visual Simulation and State-Update Reasoning
+- **Title:** DynaVisR-Billiards: Reproducible Visual Simulation and State-Update Reasoning
 - **Subtitle:** A procedural benchmark generator for collision prediction, visibility tracking, and layer inference
 - **Primary Track:** Executive Functions
 - **Secondary Track:** Attention
@@ -66,7 +66,7 @@ The generator is designed for repeatable dataset creation.
 
 ```bash
 PYTHONHASHSEED=0 python billiard_benchmark_generator.py \
-  --output-dir billiard_benchmark_out/procedural_demo \
+  --output-dir dataset/v1 \
   --num-examples 100 \
   --seed 7 \
   --snapshot-after-bounce 2 \
@@ -101,7 +101,7 @@ Generate a dataset:
 
 ```bash
 PYTHONHASHSEED=0 python billiard_benchmark_generator.py \
-  --output-dir billiard_benchmark_out/procedural_demo \
+  --output-dir dataset/v1 \
   --num-examples 10 \
   --seed 7 \
   --snapshot-after-bounce 2
@@ -110,29 +110,25 @@ PYTHONHASHSEED=0 python billiard_benchmark_generator.py \
 Convert the generated JSONL to a Kaggle-ready CSV:
 
 ```bash
-python convert_isomata_jsonl_to_kaggle_csv.py \
-  billiard_benchmark_out/procedural_demo/dataset.jsonl \
-  billiard_benchmark_out/procedural_demo/kaggle_dataset.csv \
+python convert_jsonl_to_csv.py \
+  dataset/v1/dataset.jsonl \
+  dataset/v1/benchmark.csv \
   --image-folder image
 ```
 
 ## Output layout
 
 ```text
-billiard_benchmark_out/procedural_demo/
-├── dataset.jsonl
-├── dataset.sha256
-├── manifest.json
-├── manifest.sha256
-├── example_00000_metadata.txt
-├── example_00000_record.json
-├── example_00001_metadata.txt
-├── example_00001_record.json
-└── images/
-    ├── example_00000_question.png
-    ├── example_00000_answer.png
-    ├── example_00001_question.png
-    └── example_00001_answer.png
+dataset/v1/
+  ├── dataset.jsonl
+  ├── dataset.sha256
+  ├── manifest.json
+  ├── manifest.sha256
+  └── images/
+      ├── 00000_question.png
+      ├── 00000_answer.png
+      ├── 00001_question.png
+      └── 00001_answer.png
 ```
 
 ## Dataset schema
@@ -141,7 +137,7 @@ billiard_benchmark_out/procedural_demo/
 
 Each line is a JSON object with:
 
-* `example_id` — stable example identifier
+* `sample_id` — stable example identifier
 * `image_path` — relative path to the question image
 * `answer_image_path` — relative path to the answer visualization
 * `metadata_txt_path` — relative path to the text metadata file

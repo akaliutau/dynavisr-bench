@@ -10,10 +10,10 @@ from typing import Any
 def convert_record(record: dict[str, Any], row_index: int, image_folder: str) -> dict[str, str]:
     answers = record["answers"]
     image_name = Path(record["image_path"]).name
-    example_id = record.get("example_id") or Path(image_name).stem or f"example_{row_index:05d}"
+    sample_id = record.get("sample_id") or Path(image_name).stem or f"example_{row_index:05d}"
 
     return {
-        "example_id": example_id,
+        "sample_id": sample_id,
         "prompt": record["prompt"],
         "image_rel_path": f"{image_folder.rstrip('/')}/{image_name}",
         "q1_hit_object": str(answers["q1_hit_object"]),
@@ -23,13 +23,13 @@ def convert_record(record: dict[str, Any], row_index: int, image_folder: str) ->
     }
 
 
-def convert_jsonl_to_csv(input_jsonl_path: str | Path, output_csv_path: str | Path, image_folder: str = "image") -> Path:
+def convert_jsonl_to_csv(input_jsonl_path: str | Path, output_csv_path: str | Path, image_folder: str = "images") -> Path:
     input_jsonl_path = Path(input_jsonl_path)
     output_csv_path = Path(output_csv_path)
     output_csv_path.parent.mkdir(parents=True, exist_ok=True)
 
     fieldnames = [
-        "example_id",
+        "sample_id",
         "prompt",
         "image_rel_path",
         "q1_hit_object",
@@ -57,14 +57,14 @@ def main() -> None:
     parser = argparse.ArgumentParser(
         description=(
             "Convert the generator JSONL into a flat CSV for a Kaggle dataset. "
-            "The CSV stores relative image paths such as image/example_00001_question.png."
+            "The CSV stores relative image paths such as images/00001_question.png."
         )
     )
     parser.add_argument("input_jsonl", help="Path to the generated dataset.jsonl")
     parser.add_argument("output_csv", help="Where to write the Kaggle-ready CSV")
     parser.add_argument(
-        "--image-folder", default="image",
-        help="Relative image folder inside the Kaggle dataset. Default: image",
+        "--image-folder", default="images",
+        help="Relative image folder inside the Kaggle dataset. Default: images",
     )
     args = parser.parse_args()
 

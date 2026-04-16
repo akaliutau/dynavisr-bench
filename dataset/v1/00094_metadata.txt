@@ -1,0 +1,9 @@
+You are playing the special billiard game. Initially visible obstacles: ['D']. After the 1st bounce, A appears. After the 2nd bounce, A disappears. After the 4th bounce, B appears. After the 5th bounce, C appears and B disappears. We make a momentary snapshot picture of the board when the ball hits something after the 2nd bounce. The question image shows the canonical board layout with all obstacle positions and layer ordering; use the legend to map colors to names. Answer the questions: 1) What is the object the ball hits at that moment? Options: ['A', 'B', 'C', 'D', 'Wall']. 2) List the names of visible objects at that moment. 3) Analyze only the visible objects that overlap with at least one other visible object at that moment: a) list their names; b) group and sort them into layers from bottom to top, e.g. [[A], [B]]. If there are no overlapping visible objects, return [] for both 3a and 3b.
+
+Gold answer:
+1) Wall
+2) ['D']
+3a) []
+3b) []
+
+Collision point: [0.0, 446.3984]

@@ -1065,11 +1065,11 @@ def dataset_record(
     image_path: str,
     answer_image_path: Optional[str] = None,
     metadata_txt_path: Optional[str] = None,
-    example_id: Optional[str] = None,
+    sample_id: Optional[str] = None,
 ) -> Dict[str, Any]:
     gold = gold_for_snapshot_after_bounce(world, snapshot_after_bounce)
     return {
-        "example_id": example_id or Path(image_path).stem,
+        "sample_id": sample_id or Path(image_path).stem,
         "image_path": image_path,
         "answer_image_path": answer_image_path,
         "metadata_txt_path": metadata_txt_path,
@@ -1085,9 +1085,9 @@ def dataset_record(
     }
 
 # billiard_benchmark_generator.py
-# replace write_example_bundle(...) with this version
+# replace write_bundle(...) with this version
 
-def write_example_bundle(out_dir: str | Path, stem: str, world: WorldConfig, snapshot_after_bounce: int) -> Dict[str, Path]:
+def write_bundle(out_dir: str | Path, stem: str, world: WorldConfig, snapshot_after_bounce: int) -> Dict[str, Path]:
     out_dir = Path(out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
 
@@ -1108,7 +1108,7 @@ def write_example_bundle(out_dir: str | Path, stem: str, world: WorldConfig, sna
         image_path="images/" + question_path.name,
         answer_image_path="images/" + answer_path.name,
         metadata_txt_path=meta_path.name,
-        example_id=stem,
+        sample_id=stem,
     )
     json_path.write_text(stable_json_dumps(record, indent=2) + "\n", encoding="utf-8")
 
@@ -1146,8 +1146,8 @@ def write_dataset(
                 snapshot_after_bounce=snapshot_after_bounce,
                 require_overlap_at_snapshot=require_overlap_at_snapshot,
             )
-            stem = f"example_{idx:05d}"
-            bundle = write_example_bundle(
+            stem = f"{idx:05d}"
+            bundle = write_bundle(
                 out_dir,
                 stem=stem,
                 world=world,
@@ -1159,7 +1159,7 @@ def write_dataset(
                 image_path="images/" + bundle["question_image"].name,
                 answer_image_path="images/" + bundle["answer_image"].name,
                 metadata_txt_path=bundle["metadata_txt"].name,
-                example_id=stem,
+                sample_id=stem,
             )
             f.write(stable_json_dumps(record) + "\n")
 

@@ -1,0 +1,206 @@
+{
+  "answer_image_path": "images/00067_answer.png",
+  "answers": {
+    "q1_hit_object": "Wall",
+    "q2_visible_objects": [
+      "B"
+    ],
+    "q3a_visible_overlapping_objects": [],
+    "q3b_layer_groups_bottom_to_top": []
+  },
+  "debug": {
+    "collision_index_answered": 3,
+    "collision_point": [
+      506.2753,
+      600.0
+    ],
+    "hit_object": "Wall",
+    "layer_groups_bottom_to_top": [],
+    "snapshot_after_bounce": 2,
+    "target_leg": {
+      "bounce_index": 3,
+      "end": [
+        506.2753,
+        600.0
+      ],
+      "hit_name": "Wall",
+      "start": [
+        800.0,
+        559.019
+      ]
+    },
+    "trajectory_legs_to_answer": [
+      {
+        "bounce_index": 1,
+        "end": [
+          0.0,
+          447.4014
+        ],
+        "hit_name": "Wall",
+        "start": [
+          218.99,
+          416.8475
+        ],
+        "visible_during_leg": [
+          "B"
+        ]
+      },
+      {
+        "bounce_index": 2,
+        "end": [
+          800.0,
+          559.019
+        ],
+        "hit_name": "Wall",
+        "start": [
+          0.0,
+          447.4014
+        ],
+        "visible_during_leg": [
+          "B",
+          "D"
+        ]
+      },
+      {
+        "bounce_index": 3,
+        "end": [
+          506.2753,
+          600.0
+        ],
+        "hit_name": "Wall",
+        "start": [
+          800.0,
+          559.019
+        ],
+        "visible_during_leg": [
+          "B"
+        ]
+      }
+    ],
+    "visible_objects_at_that_moment": [
+      "B"
+    ],
+    "visible_overlapping_objects": []
+  },
+  "image_path": "images/00067_question.png",
+  "metadata_txt_path": "00067_metadata.txt",
+  "prompt": "You are playing the special billiard game. Initially visible obstacles: ['B']. After the 1st bounce, B disappears and D appears. After the 2nd bounce, D disappears. After the 3rd bounce, B disappears. After the 4th bounce, B disappears. We make a momentary snapshot picture of the board when the ball hits something after the 2nd bounce. The question image shows the canonical board layout with all obstacle positions and layer ordering; use the legend to map colors to names. Answer the questions: 1) What is the object the ball hits at that moment? Options: ['A', 'B', 'C', 'D', 'Wall']. 2) List the names of visible objects at that moment. 3) Analyze only the visible objects that overlap with at least one other visible object at that moment: a) list their names; b) group and sort them into layers from bottom to top, e.g. [[A], [B]]. If there are no overlapping visible objects, return [] for both 3a and 3b.",
+  "sample_id": "00067",
+  "world": {
+    "ball_dir": [
+      -0.990407,
+      0.138183
+    ],
+    "ball_start": [
+      218.99,
+      416.8475
+    ],
+    "height": 600,
+    "obstacles": {
+      "A": {
+        "always_visible": false,
+        "initially_visible": false,
+        "rect": [
+          420,
+          28,
+          70,
+          315
+        ],
+        "rgba": [
+          237,
+          221,
+          172,
+          190
+        ],
+        "z": 1
+      },
+      "B": {
+        "always_visible": true,
+        "initially_visible": false,
+        "rect": [
+          264,
+          20,
+          107,
+          423
+        ],
+        "rgba": [
+          165,
+          192,
+          235,
+          190
+        ],
+        "z": 3
+      },
+      "C": {
+        "always_visible": false,
+        "initially_visible": false,
+        "rect": [
+          534,
+          36,
+          111,
+          517
+        ],
+        "rgba": [
+          184,
+          206,
+          176,
+          190
+        ],
+        "z": 0
+      },
+      "D": {
+        "always_visible": false,
+        "initially_visible": false,
+        "rect": [
+          165,
+          50,
+          581,
+          82
+        ],
+        "rgba": [
+          230,
+          182,
+          179,
+          190
+        ],
+        "z": 2
+      }
+    },
+    "transitions_after_bounce": {
+      "1": [
+        {
+          "name": "B",
+          "names": null,
+          "op": "remove"
+        },
+        {
+          "name": "D",
+          "names": null,
+          "op": "add"
+        }
+      ],
+      "2": [
+        {
+          "name": "D",
+          "names": null,
+          "op": "remove"
+        }
+      ],
+      "3": [
+        {
+          "name": "B",
+          "names": null,
+          "op": "remove"
+        }
+      ],
+      "4": [
+        {
+          "name": "B",
+          "names": null,
+          "op": "remove"
+        }
+      ]
+    },
+    "width": 800
+  }
+}

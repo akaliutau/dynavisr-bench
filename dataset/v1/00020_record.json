@@ -1,0 +1,198 @@
+{
+  "answer_image_path": "images/00020_answer.png",
+  "answers": {
+    "q1_hit_object": "Wall",
+    "q2_visible_objects": [],
+    "q3a_visible_overlapping_objects": [],
+    "q3b_layer_groups_bottom_to_top": []
+  },
+  "debug": {
+    "collision_index_answered": 3,
+    "collision_point": [
+      0.0,
+      497.5358
+    ],
+    "hit_object": "Wall",
+    "layer_groups_bottom_to_top": [],
+    "snapshot_after_bounce": 2,
+    "target_leg": {
+      "bounce_index": 3,
+      "end": [
+        0.0,
+        497.5358
+      ],
+      "hit_name": "Wall",
+      "start": [
+        800.0,
+        345.4728
+      ]
+    },
+    "trajectory_legs_to_answer": [
+      {
+        "bounce_index": 1,
+        "end": [
+          0.0,
+          193.4098
+        ],
+        "hit_name": "Wall",
+        "start": [
+          173.7942,
+          160.3752
+        ],
+        "visible_during_leg": []
+      },
+      {
+        "bounce_index": 2,
+        "end": [
+          800.0,
+          345.4728
+        ],
+        "hit_name": "Wall",
+        "start": [
+          0.0,
+          193.4098
+        ],
+        "visible_during_leg": []
+      },
+      {
+        "bounce_index": 3,
+        "end": [
+          0.0,
+          497.5358
+        ],
+        "hit_name": "Wall",
+        "start": [
+          800.0,
+          345.4728
+        ],
+        "visible_during_leg": []
+      }
+    ],
+    "visible_objects_at_that_moment": [],
+    "visible_overlapping_objects": []
+  },
+  "image_path": "images/00020_question.png",
+  "metadata_txt_path": "00020_metadata.txt",
+  "prompt": "You are playing the special billiard game. Initially there are no visible obstacles. After the 3rd bounce, D appears and C appears. After the 4th bounce, D disappears and B appears. After the 5th bounce, C disappears and A appears. We make a momentary snapshot picture of the board when the ball hits something after the 2nd bounce. The question image shows the canonical board layout with all obstacle positions and layer ordering; use the legend to map colors to names. Answer the questions: 1) What is the object the ball hits at that moment? Options: ['A', 'B', 'C', 'D', 'Wall']. 2) List the names of visible objects at that moment. 3) Analyze only the visible objects that overlap with at least one other visible object at that moment: a) list their names; b) group and sort them into layers from bottom to top, e.g. [[A], [B]]. If there are no overlapping visible objects, return [] for both 3a and 3b.",
+  "sample_id": "00020",
+  "world": {
+    "ball_dir": [
+      -0.98241,
+      0.186735
+    ],
+    "ball_start": [
+      173.7942,
+      160.3752
+    ],
+    "height": 600,
+    "obstacles": {
+      "A": {
+        "always_visible": false,
+        "initially_visible": false,
+        "rect": [
+          218,
+          27,
+          99,
+          318
+        ],
+        "rgba": [
+          237,
+          221,
+          172,
+          190
+        ],
+        "z": 0
+      },
+      "B": {
+        "always_visible": false,
+        "initially_visible": false,
+        "rect": [
+          554,
+          54,
+          122,
+          439
+        ],
+        "rgba": [
+          165,
+          192,
+          235,
+          190
+        ],
+        "z": 3
+      },
+      "C": {
+        "always_visible": false,
+        "initially_visible": false,
+        "rect": [
+          160,
+          201,
+          639,
+          94
+        ],
+        "rgba": [
+          184,
+          206,
+          176,
+          190
+        ],
+        "z": 2
+      },
+      "D": {
+        "always_visible": false,
+        "initially_visible": false,
+        "rect": [
+          25,
+          379,
+          434,
+          67
+        ],
+        "rgba": [
+          230,
+          182,
+          179,
+          190
+        ],
+        "z": 1
+      }
+    },
+    "transitions_after_bounce": {
+      "3": [
+        {
+          "name": "D",
+          "names": null,
+          "op": "add"
+        },
+        {
+          "name": "C",
+          "names": null,
+          "op": "add"
+        }
+      ],
+      "4": [
+        {
+          "name": "D",
+          "names": null,
+          "op": "remove"
+        },
+        {
+          "name": "B",
+          "names": null,
+          "op": "add"
+        }
+      ],
+      "5": [
+        {
+          "name": "C",
+          "names": null,
+          "op": "remove"
+        },
+        {
+          "name": "A",
+          "names": null,
+          "op": "add"
+        }
+      ]
+    },
+    "width": 800
+  }
+}

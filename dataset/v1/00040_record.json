@@ -1,0 +1,240 @@
+{
+  "answer_image_path": "images/00040_answer.png",
+  "answers": {
+    "q1_hit_object": "B",
+    "q2_visible_objects": [
+      "B",
+      "C",
+      "D"
+    ],
+    "q3a_visible_overlapping_objects": [
+      "B",
+      "C",
+      "D"
+    ],
+    "q3b_layer_groups_bottom_to_top": [
+      [
+        "B"
+      ],
+      [
+        "C"
+      ],
+      [
+        "D"
+      ]
+    ]
+  },
+  "debug": {
+    "collision_index_answered": 3,
+    "collision_point": [
+      524.8307,
+      383.0
+    ],
+    "hit_object": "B",
+    "layer_groups_bottom_to_top": [
+      [
+        "B"
+      ],
+      [
+        "C"
+      ],
+      [
+        "D"
+      ]
+    ],
+    "snapshot_after_bounce": 2,
+    "target_leg": {
+      "bounce_index": 3,
+      "end": [
+        524.8307,
+        383.0
+      ],
+      "hit_name": "B",
+      "start": [
+        271.0741,
+        600.0
+      ]
+    },
+    "trajectory_legs_to_answer": [
+      {
+        "bounce_index": 1,
+        "end": [
+          0.0,
+          368.1908
+        ],
+        "hit_name": "Wall",
+        "start": [
+          150.3438,
+          239.6243
+        ],
+        "visible_during_leg": [
+          "C"
+        ]
+      },
+      {
+        "bounce_index": 2,
+        "end": [
+          271.0741,
+          600.0
+        ],
+        "hit_name": "Wall",
+        "start": [
+          0.0,
+          368.1908
+        ],
+        "visible_during_leg": [
+          "B",
+          "C"
+        ]
+      },
+      {
+        "bounce_index": 3,
+        "end": [
+          524.8307,
+          383.0
+        ],
+        "hit_name": "B",
+        "start": [
+          271.0741,
+          600.0
+        ],
+        "visible_during_leg": [
+          "B",
+          "C",
+          "D"
+        ]
+      }
+    ],
+    "visible_objects_at_that_moment": [
+      "B",
+      "C",
+      "D"
+    ],
+    "visible_overlapping_objects": [
+      "B",
+      "C",
+      "D"
+    ]
+  },
+  "image_path": "images/00040_question.png",
+  "metadata_txt_path": "00040_metadata.txt",
+  "prompt": "You are playing the special billiard game. Initially visible obstacles: ['C']. After the 1st bounce, B appears. After the 2nd bounce, C disappears and D appears. After the 3rd bounce, B disappears. After the 4th bounce, A appears. We make a momentary snapshot picture of the board when the ball hits something after the 2nd bounce. The question image shows the canonical board layout with all obstacle positions and layer ordering; use the legend to map colors to names. Answer the questions: 1) What is the object the ball hits at that moment? Options: ['A', 'B', 'C', 'D', 'Wall']. 2) List the names of visible objects at that moment. 3) Analyze only the visible objects that overlap with at least one other visible object at that moment: a) list their names; b) group and sort them into layers from bottom to top, e.g. [[A], [B]]. If there are no overlapping visible objects, return [] for both 3a and 3b.",
+  "sample_id": "00040",
+  "world": {
+    "ball_dir": [
+      -0.760004,
+      0.649918
+    ],
+    "ball_start": [
+      150.3438,
+      239.6243
+    ],
+    "height": 600,
+    "obstacles": {
+      "A": {
+        "always_visible": false,
+        "initially_visible": false,
+        "rect": [
+          520,
+          55,
+          76,
+          359
+        ],
+        "rgba": [
+          237,
+          221,
+          172,
+          190
+        ],
+        "z": 3
+      },
+      "B": {
+        "always_visible": false,
+        "initially_visible": false,
+        "rect": [
+          190,
+          297,
+          471,
+          86
+        ],
+        "rgba": [
+          165,
+          192,
+          235,
+          190
+        ],
+        "z": 0
+      },
+      "C": {
+        "always_visible": true,
+        "initially_visible": false,
+        "rect": [
+          182,
+          27,
+          98,
+          356
+        ],
+        "rgba": [
+          184,
+          206,
+          176,
+          190
+        ],
+        "z": 1
+      },
+      "D": {
+        "always_visible": false,
+        "initially_visible": false,
+        "rect": [
+          240,
+          166,
+          460,
+          60
+        ],
+        "rgba": [
+          230,
+          182,
+          179,
+          190
+        ],
+        "z": 2
+      }
+    },
+    "transitions_after_bounce": {
+      "1": [
+        {
+          "name": "B",
+          "names": null,
+          "op": "add"
+        }
+      ],
+      "2": [
+        {
+          "name": "C",
+          "names": null,
+          "op": "remove"
+        },
+        {
+          "name": "D",
+          "names": null,
+          "op": "add"
+        }
+      ],
+      "3": [
+        {
+          "name": "B",
+          "names": null,
+          "op": "remove"
+        }
+      ],
+      "4": [
+        {
+          "name": "A",
+          "names": null,
+          "op": "add"
+        }
+      ]
+    },
+    "width": 800
+  }
+}
