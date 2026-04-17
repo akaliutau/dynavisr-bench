@@ -1,14 +1,15 @@
 # DynaVisR: Benchmark for Visual Reasoning in Dynamic Environments
 
 <p align="center">
- <img src="assets/card_image_tumbl.png" width="85%" alt="Local Intelligence Node" />
-</p>
-
-<p>
  <a><img alt="Status" src="https://img.shields.io/badge/benchmark-6a5acd"></a>
  <a><img alt="Python" src="https://img.shields.io/badge/Python-3.12%2B-blue"></a>
  <a><img alt="License" src="https://img.shields.io/badge/license-MIT-lightgrey"></a>
 </p>
+
+<p align="center">
+ <img src="assets/card_image_tumbl.png" width="85%" alt="Local Intelligence Node" />
+</p>
+
 
 **DynaVisR-Billiards** is a procedural dataset generator for evaluating whether a model can combine:
 
