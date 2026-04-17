@@ -7,7 +7,7 @@
 </p>
 
 <p align="center">
- <img src="assets/card_image.png" width="85%" alt="Local Intelligence Node" />
+ <img src="assets/card_image_tumbl.png" width="85%" alt="Local Intelligence Node" />
 </p>
 
 
