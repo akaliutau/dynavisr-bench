@@ -1,0 +1,144 @@
+### Project Name
+
+**DynaVisR: A Benchmark for Dynamic Visual Simulation, State Updates, and Layer Reasoning**
+
+### Your Team
+
+Aliaksei Kaliutau, Monodromy / Imperial College London
+
+### Problem Statement
+
+This submission targets **Executive Functions** as the primary track and **Attention** as the secondary track. The core question is whether a model can maintain and update a latent world state while performing exact visual simulation.
+
+Existing benchmarks usually isolate only one slice of this ability. CLEVR stresses compositional scene reasoning in static images [1]. CATER adds long-horizon temporal tracking [2]. CLEVRER, IntPhys, ComPhy, PHYRE, and I-PHYRE probe causal or physical reasoning, but typically emphasize future events, plausibility, or intervention rather than discrete rule-governed state maintenance [3-7]. InstaOrder studies occlusion and relative ordering, but not event-conditioned dynamics [8]. DynaVisR deliberately couples these burdens in one exact-answer task.
+
+Each example contains a rectangular table, a moving ball, and named rectangular obstacles. The model receives a canonical board image plus rules specifying which obstacles are initially visible and which visibility changes occur after specific bounce counts. To answer correctly, it must
+
+- simulate the reflected trajectory, 
+- apply bounce-indexed visibility transitions at the correct step, 
+- restrict attention to the visible subset at the queried moment, and 
+- recover bottom-to-top order among the visible overlapping objects. 
+
+This is important because event-triggered latent-state tracking and object permanence are foundational for agents reasoning under partial observability [9].
+
+The broader importance is **transferable skill measurement**. This benchmark is not meant to teach billiards; it isolates reusable subskills: multi-step physical prediction, event-conditioned memory updates, selective attention under changing visibility, and ordinal reasoning over layered scenes. Those same ingredients matter in embodied navigation and manipulation, where object permanence and spatial tracking are essential [9], in robot control where dynamics prediction is central to planning [10], and in safety-critical perception where occlusion handling remains a major challenge for autonomous driving [11]. 
+
+### Task & benchmark construction
+
+We instantiate one generator into **three exact-answer tasks**:
+
+**1) next_hit_object**  
+Given the board and the rule text, predict what the ball hits at the queried moment after the specified number of prior bounces.
+
+**2) visible_set_tracking**  
+Return the obstacles visible during the target trajectory leg. This isolates whether the model updated the latent state machine correctly.
+
+**3) overlap_and_layer_order**  
+Among visible objects only, identify which overlap with another visible object and output their layer groups from bottom to top.
+
+This decomposition is the core diagnostic idea. A model may approximate trajectory well yet fail at state updates; another may track visibility but fail on layered subset reasoning. The benchmark therefore exposes *where* reasoning breaks.
+
+The design also resists shortcuts. Obstacles are procedurally generated bars with controlled overlap structure; visibility depends on event counts, not appearance alone; and the question is asked only after several reasoning steps.
+
+![Example question image with board, obstacle legend, and launch direction.](https://www.googleapis.com/download/storage/v1/b/kaggle-user-content/o/inbox%2F7338753%2F8ba7e9ff7758376edfd71078ae60b3d5%2F00085_question.png?generation=1776379004500825&alt=media)
+
+Example of the question image with board, obstacle legend, and launch direction. On each bounce, the color obstacles can disappear or appear in random order.  
+
+![Solution image with reflected trajectory, queried hit point, and visible-vs-hidden objects.](https://www.googleapis.com/download/storage/v1/b/kaggle-user-content/o/inbox%2F7338753%2Fdea14a42bdec098ab7e26cd4a54d4513%2F00085_answer.png?generation=1776379075552327&alt=media)
+
+Solution image with reflected trajectory, queried hit point, and visible-vs-hidden objects.
+
+### Dataset
+
+DynaVisR is a **procedural synthetic dataset generator** rather than a fixed hand-authored corpus. Each generated record contains:
+
+- `sample_id`
+- `image_path`
+- `answer_image_path`
+- `metadata_txt_path`
+- `prompt`
+- `world` (geometry, ball state, obstacles, z-order, visibility program)
+- exact targets for:
+  - `q1_hit_object`
+  - `q2_visible_objects`
+  - `q3a_visible_overlapping_objects`
+  - `q3b_layer_groups_bottom_to_top`
+- `debug` traces for auditability
+
+NOTE: image at `answer_image_path` is used only for quality control and for validation if task is offered to human
+
+Because labels come from exact simulation, the benchmark does not depend on human judgment.
+
+The generator is also explicitly reproducible: builds are seeded, JSON output is deterministic, emitted files are hashed, and the dataset bundle includes a manifest with SHA-256 checksums. That makes the benchmark easy to regenerate, verify, and version-control. Because generation is procedural, the hidden test set can scale without relabeling.
+
+A useful public benchmark build is to generate multiple difficulty tiers by varying the snapshot bounce index, the required overlap condition, and the density of state transitions. This yields a gradient from mostly geometric reasoning to tightly coupled geometry-plus-state-plus-layer reasoning.
+
+> **[Table 1 placeholder]** Dataset summary by split, difficulty tier, bounce index, and overlap condition.  
+> **[Figure 3 placeholder]** Difficulty ladder schematic.
+
+### Technical details
+
+The pipeline has four stages.
+
+**Stage 1: world synthesis.** Sample a 2D board, four named rectangular obstacles, their z-order, a ball start state, and a visibility state machine indexed by bounce count.
+
+**Stage 2: exact simulation.** Compute the next collision analytically against walls and currently visible rectangles, reflect the direction vector, and continue for the required number of legs.
+
+**Stage 3: target extraction.** At the queried leg, derive the exact hit object, visible set, overlap subset, and bottom-to-top layer groups.
+
+**Stage 4: quality control.** Reject ambiguous or low-clarity worlds, including simultaneous hits, near-corner collisions, close misses, unreadable overlaps, short legs, and crowded starts.
+
+The benchmark is novel in a specific, defensible sense. Prior synthetic work showed the value of controlled reasoning datasets for compositional perception (CLEVR), temporal tracking (CATER), causal video reasoning (CLEVRER), and physical interaction (PHYRE, I-PHYRE) [1-4,7]. DynaVisR contributes a new *joint* challenge: exact geometric simulation + discrete event-triggered state updates + overlap-constrained layer ordering, all evaluated with exact symbolic labels. In effect, it turns intuitive physics into an **executive-control benchmark**.
+
+That combination is not cosmetic. It tests whether a model can carry three synchronized internal representations at once: trajectory, latent visibility state, and layered scene order. This is closer to transferable world-model use than one-step prediction or plausibility scoring, and it is more auditable than free-form video QA [3-7].
+
+### Results, insights, and conclusions
+
+This benchmark should produce a **meaningful gradient**. Easy cases can be solved by models that handle short-horizon simulation. Harder cases require maintaining hidden state across multiple bounces and then restricting reasoning to the visible overlapping subset.
+
+The main behavioral signature we care about is **profile mismatch across subtasks**. A model that scores well on `next_hit_object` but poorly on `visible_set_tracking` is likely simulating geometry without correctly updating latent state. A model that succeeds on both but drops on `overlap_and_layer_order` is failing at selective attention or ordered structural reasoning. That makes the benchmark more informative than a single “physics accuracy” number.
+
+We report at three systems: (i) a weak heuristic baseline, such as shortest-ray or prompt-only guessing, (ii) one mid-tier frontier model, and (iii) one top-tier frontier model. The results table should show per-task breakdown and performance by difficulty tier.
+
+> **[Table 2 placeholder]** Model results by task and overall score.  
+> **[Figure 4 placeholder]** Performance drop from easy to hard tiers.  
+> **[Figure 5 placeholder]** Error taxonomy: geometry failures vs. state-update failures vs. layer-order failures.
+
+The broader insight is that DynaVisR measures whether a model can maintain a compact internal state, update it only when event conditions are met, and use that updated state to answer an exact structural query. That is a cleaner probe of executive control than static VQA, and a cleaner probe of attention than open-ended video captioning.
+
+### Organizational affiliations
+
+Monodromy / Imperial College London
+
+### References & citations
+
+### References & citations
+
+[1] Johnson, J., Hariharan, B., van der Maaten, L., Fei-Fei, L., Zitnick, C. L., & Girshick, R. (2017). *CLEVR: A Diagnostic Dataset for Compositional Language and Elementary Visual Reasoning.* CVPR.
+
+[2] Girdhar, R., & Ramanan, D. (2020). *CATER: A Diagnostic Dataset for Compositional Actions and TEmporal Reasoning.* ICLR.
+
+[3] Yi, K., Gan, C., Li, Y., Kohli, P., Wu, J., Torralba, A., & Tenenbaum, J. B. (2020). *CLEVRER: CoLlision Events for Video REpresentation and Reasoning.* ICLR.
+
+[4] Bakhtin, A., van der Maaten, L., Johnson, J., Gustafson, L., & Girshick, R. (2019). *PHYRE: A New Benchmark for Physical Reasoning.* NeurIPS.
+
+[5] Riochet, R., Castro, M. Y., Bernard, M., Lerer, A., Fergus, R., Izard, V., & Dupoux, E. (2018/2022). *IntPhys: A Framework and Benchmark for Visual Intuitive Physics Reasoning.*
+
+[6] Chen, Z., Mao, J., Du, Y., Wang, C., Xu, R., Huang, W., Gan, C., & Tenenbaum, J. B. (2022). *ComPhy: Compositional Physical Reasoning of Objects and Events from Videos.* ICLR.
+
+[7] Li, S., Wu, K., Zhang, C., & Zhu, Y. (2024). *I-PHYRE: Interactive Physical Reasoning.* ICLR.
+
+[8] Lee, H., & Park, J. (2022). *Instance-wise Occlusion and Depth Orders in Natural Scenes.* CVPR.
+
+[9] Voudouris, K., et al. (2022). *Evaluating Object Permanence in Embodied Agents using the Animal-AI Environment.*
+
+[10] Ai, B., Tian, S., Shi, H., Wang, Y., Pfaff, T., Tan, C., Christensen, H. I., Su, H., Wu, J., & Li, Y. (2025). *A Review of Learning-Based Dynamics Models for Robotic Manipulation.* Science Robotics.
+
+[11] Ruan, J., Cui, H., Huang, Y., Li, T., Wu, C., & Zhang, K. (2023). *A Review of Occluded Objects Detection in Real Complex Scenarios for Autonomous Driving.* Green Energy and Intelligent Transportation.
+
+[12] Chollet, F. (2019). *On the Measure of Intelligence.*
+
+[13] Burnell, R., Yamamori, Y., Firat, O., Olszewska, K., Hughes-Fitt, S., Kelly, O., Galatzer-Levy, I. R., Morris, M. R., Dafoe, A., Snyder, A. M., Goodman, N. D., Botvinick, M., & Legg, S. (2026). *Measuring Progress Toward AGI: A Cognitive Framework.*
+
+[14] Kaggle / Google DeepMind. (2026). *Measuring Progress Toward AGI* competition overview and Kaggle Benchmarks documentation.
+
