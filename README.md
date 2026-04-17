@@ -113,7 +113,7 @@ Convert the generated JSONL to a Kaggle-ready CSV:
 python convert_jsonl_to_csv.py \
   dataset/v1/dataset.jsonl \
   dataset/v1/benchmark.csv \
-  --image-folder image
+  --image-folder images
 ```
 
 ## Output layout
