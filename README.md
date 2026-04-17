@@ -1,15 +1,14 @@
 # DynaVisR: Benchmark for Visual Reasoning in Dynamic Environments
 
+<p align="center">
+ <img src="assets/card_image_tumbl.png" width="85%" alt="Local Intelligence Node" />
+</p>
+
 <p>
  <a><img alt="Status" src="https://img.shields.io/badge/benchmark-6a5acd"></a>
  <a><img alt="Python" src="https://img.shields.io/badge/Python-3.12%2B-blue"></a>
  <a><img alt="License" src="https://img.shields.io/badge/license-MIT-lightgrey"></a>
 </p>
-
-<p align="center">
- <img src="assets/card_image_tumbl.png" width="85%" alt="Local Intelligence Node" />
-</p>
-
 
 **DynaVisR-Billiards** is a procedural dataset generator for evaluating whether a model can combine:
 
@@ -21,16 +20,6 @@ Each example is a synthetic billiard world with a ball, a rectangular table, and
 The solver must mentally simulate the ball’s reflections while also applying visibility rules that change after specific bounce counts. 
 At a queried moment, the solver must identify the next hit object, determine which obstacles are visible, 
 and recover the bottom-to-top order of the visible overlapping subset.
-
-## Camera-ready metadata
-
-- **Title:** DynaVisR-Billiards: Reproducible Visual Simulation and State-Update Reasoning
-- **Subtitle:** A procedural benchmark generator for collision prediction, visibility tracking, and layer inference
-- **Primary Track:** Executive Functions
-- **Secondary Track:** Attention
-- **Suggested Tags:** `executive-functions`, `attention`, `vision-language`, `synthetic-data`, `benchmarking`, `reproducibility`
-- **One-line Pitch:** A generator that produces exact-answer visual reasoning tasks requiring multistep simulation, 
-                       rule application, and overlap ordering.
 
 ## What this generator produces
 
@@ -88,15 +77,15 @@ PYTHONHASHSEED=0 python billiard_benchmark_generator.py \
 **Clone the repository**
 
 ```bash
-git clone https://github.com/akaliutau/dynavis-bench.git
-cd dynavis-bench
+git clone https://github.com/akaliutau/dynavisr-bench.git
+cd dynavisr-bench
 ```
 
 **Create and activate a Conda environment**
 
 ```bash
-conda create -n dynavis python=3.12 -y
-conda activate dynavis
+conda create -n dynavisr python=3.12 -y
+conda activate dynavisr
 ```
 
 **Install dependencies**
@@ -194,6 +183,17 @@ This generator is best positioned as a benchmark for **Executive Functions**, wi
 ## Citation
 
 If you use this generator in a benchmark, cite the repository or benchmark writeup and include the dataset seed, snapshot configuration, and dataset hash from `manifest.json`.
+
+---
+
+Built exclusively for:
+
+Measuring Progress Toward AGI - Cognitive Abilities
+
+Google DeepMind Hackathon
+
+https://www.kaggle.com/competitions/kaggle-measuring-agi/writeups/dynamic-visual-reasoning
+
 
 
 
