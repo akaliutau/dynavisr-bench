@@ -1,9 +1,10 @@
 # DynaVisR: Benchmark for Visual Reasoning in Dynamic Environments
 
 <p align="center">
- <a><img alt="Status" src="https://img.shields.io/badge/benchmark-6a5acd"></a>
- <a><img alt="Python" src="https://img.shields.io/badge/Python-3.12%2B-blue"></a>
- <a><img alt="License" src="https://img.shields.io/badge/license-MIT-lightgrey"></a>
+  <a><img alt="Benchmark" src="https://img.shields.io/badge/benchmark-dynamic_visual_reasoning-6a5acd"></a>
+  <a><img alt="Python" src="https://img.shields.io/badge/Python-3.12%2B-blue"></a>
+  <a><img alt="License" src="https://img.shields.io/badge/license-MIT-lightgrey"></a>
+  <a href="docs/dynamic_visual_reasoning_results_full.ipynb"><img alt="Notebook" src="https://img.shields.io/badge/analysis-notebook-orange"></a>
 </p>
 
 <p align="center">
@@ -21,6 +22,57 @@ Each example is a synthetic billiard world with a ball, a rectangular table, and
 The solver must mentally simulate the ball’s reflections while also applying visibility rules that change after specific bounce counts. 
 At a queried moment, the solver must identify the next hit object, determine which obstacles are visible, 
 and recover the bottom-to-top order of the visible overlapping subset.
+
+
+## At a glance
+
+- **Modality:** image-grounded visual reasoning
+- **Core challenge:** coupled physics simulation + dynamic state updates
+- **Task outputs:** next hit object, visible objects, overlapping visible subset, layer order
+- **Artifacts produced:** question image, answer image, metadata text, JSON record, JSONL dataset, manifests, checksums
+- **Reproducibility:** seed-controlled generation, deterministic ordering, SHA-256 manifests
+
+## Task overview
+
+<p align="center">
+  <img src="assets/benchmark_task_overview.png" width="100%" alt="Task overview for the DynaVisR-Billiards benchmark" />
+</p>
+
+This benchmark is designed to reduce shortcutting by requiring models to solve a **coupled reasoning problem** rather than classify a familiar static pattern. A correct answer requires:
+
+- exact reflection reasoning against walls and currently visible obstacles,
+- correct application of visibility transitions after bounce counts,
+- filtering to the visible subset at the queried moment,
+- identifying which visible objects overlap,
+- sorting those objects into bottom-to-top layers.
+
+Because the generator computes gold answers by exact simulation and rejects ambiguous or low-clarity worlds, the resulting labels are precise and auditable.
+
+## Example results snapshot
+
+The repository includes an analysis notebook with publication-ready figures. The snapshot below is exported from the current notebook run and is useful for the README, project page, or benchmark report.
+
+<p align="center">
+  <img src="assets/figure_1_total_score_comparison.svg" width="100%" alt="Benchmark results snapshot with model comparison charts" />
+</p>
+
+### Current leaderboard summary
+
+| Model | Mean total score | 95% CI |
+|---|---:|---:|
+| Gemini 3.1 Pro Preview | 0.876 | 0.835–0.913 |
+| Gemini 3 Flash Preview | 0.689 | 0.623–0.753 |
+| Qwen 3 235B A22B Instruct | 0.594 | 0.537–0.650 |
+| Claude Opus 4.6 | 0.583 | 0.517–0.646 |
+
+The full notebook also includes:
+- overall model comparison,
+- clustered subtask-group comparison,
+- score-distribution analysis across examples.
+
+```md
+[Analysis notebook](docs/dynamic_visual_reasoning_results_full.ipynb)
+```
 
 ## What this generator produces
 
