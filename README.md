@@ -35,7 +35,9 @@ and recover the bottom-to-top order of the visible overlapping subset.
 ## Task overview
 
 <p align="center">
-  <img src="assets/benchmark_task_overview.png" width="100%" alt="Task overview for the DynaVisR-Billiards benchmark" />
+  <img src="assets/benchmark_task_overview.png" width="100%" alt="Task overview for the DynaVisR (Billiards) benchmark" />
+  <br>
+  <a href="assets/benchmark_task_overview.png">View full size</a>
 </p>
 
 This benchmark is designed to reduce shortcutting by requiring models to solve a **coupled reasoning problem** rather than classify a familiar static pattern. A correct answer requires:
@@ -48,7 +50,7 @@ This benchmark is designed to reduce shortcutting by requiring models to solve a
 
 Because the generator computes gold answers by exact simulation and rejects ambiguous or low-clarity worlds, the resulting labels are precise and auditable.
 
-## Example results snapshot
+## Results snapshot (v1)
 
 The repository includes an analysis notebook with publication-ready figures. The snapshot below is exported from the current notebook run and is useful for the README, project page, or benchmark report.
 
@@ -65,14 +67,10 @@ The repository includes an analysis notebook with publication-ready figures. The
 | Qwen 3 235B A22B Instruct | 0.594 | 0.537–0.650 |
 | Claude Opus 4.6 | 0.583 | 0.517–0.646 |
 
-The full notebook also includes:
+The [full notebook](docs/dynamic_visual_reasoning_results_full.ipynb) also includes:
 - overall model comparison,
 - clustered subtask-group comparison,
 - score-distribution analysis across examples.
-
-```md
-[Analysis notebook](docs/dynamic_visual_reasoning_results_full.ipynb)
-```
 
 ## What this generator produces
 
