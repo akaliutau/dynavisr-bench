@@ -52,10 +52,14 @@ Because the generator computes gold answers by exact simulation and rejects ambi
 
 ## Results snapshot (v1)
 
-The repository includes an analysis notebook with publication-ready figures. The snapshot below is exported from the current notebook run and is useful for the README, project page, or benchmark report.
+The repository includes an analysis notebook with publication-ready figures. 
 
 <p align="center">
   <img src="assets/figure_1_total_score_comparison.svg" width="100%" alt="Benchmark results snapshot with model comparison charts" />
+</p>
+
+<p align="center">
+  <img src="assets/figure_2_subtask_group_comparison.svg" width="100%" alt="Benchmark results snapshot with model comparison charts" />
 </p>
 
 ### Current leaderboard summary
