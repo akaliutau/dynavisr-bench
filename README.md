@@ -66,11 +66,11 @@ The repository includes an analysis notebook with publication-ready figures.
 
 | Model | Mean total score | 95% CI |
 |---|---:|---:|
-| Gemini 3.1 Pro Preview | 0.8980 |	0.859-0.934 |
-| Gemini 3 Flash Preview | 0.7585 |	0.698-0.814500 |
-| Qwen 3 235B A22B Instruct | 0.6010 |	0.545-0.657013 |
-| Claude Sonnet 4.6 | 0.5830 |	0.513-0.649 |
-| Claude Opus 4.7 | 0.4120 |	0.346-0.476 |
+| Gemini 3.1 Pro Preview | 0.898 |	0.859-0.934 |
+| Gemini 3 Flash Preview | 0.758 |	0.698-0.814 |
+| Qwen 3 235B A22B Instruct | 0.601 |	0.545-0.657 |
+| Claude Sonnet 4.6 | 0.583 |	0.513-0.649 |
+| Claude Opus 4.7 | 0.412 |	0.346-0.476 |
 
 
 
