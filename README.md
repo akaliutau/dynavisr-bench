@@ -66,12 +66,16 @@ The repository includes an analysis notebook with publication-ready figures.
 
 | Model | Mean total score | 95% CI |
 |---|---:|---:|
-| Gemini 3.1 Pro Preview | 0.876 | 0.835–0.913 |
-| Gemini 3 Flash Preview | 0.689 | 0.623–0.753 |
-| Qwen 3 235B A22B Instruct | 0.594 | 0.537–0.650 |
-| Claude Opus 4.6 | 0.583 | 0.517–0.646 |
+| Gemini 3.1 Pro Preview | 0.8980 |	0.859-0.934 |
+| Gemini 3 Flash Preview | 0.7585 |	0.698-0.814500 |
+| Qwen 3 235B A22B Instruct | 0.6010 |	0.545-0.657013 |
+| Claude Sonnet 4.6 | 0.5830 |	0.513-0.649 |
+| Claude Opus 4.7 | 0.4120 |	0.346-0.476 |
 
-The [full notebook](docs/dynamic_visual_reasoning_results_full.ipynb) also includes:
+
+
+
+The [full notebook](docs/dynamic_visual_reasoning_results_full.ipynb) along with methodology also includes:
 - overall model comparison,
 - clustered subtask-group comparison,
 - score-distribution analysis across examples.
