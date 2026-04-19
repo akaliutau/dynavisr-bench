@@ -241,7 +241,7 @@ This generator is best positioned as a benchmark for **Executive Functions**, wi
 
 ## Citation
 
-If you use this generator in a benchmark, cite the repository or benchmark writeup and include the dataset seed, snapshot configuration, and dataset hash from `manifest.json`.
+If you use this generator in a benchmark, cite the repository or benchmark [writeup](https://www.kaggle.com/competitions/kaggle-measuring-agi/writeups/dynamic-visual-reasoning) and include the dataset seed, snapshot configuration, and dataset hash from `manifest.json`.
 
 ---
 
