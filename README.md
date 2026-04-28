@@ -92,22 +92,6 @@ For every generated example, the pipeline writes:
 - a **manifest.json** file with per-file SHA-256 hashes and build metadata,
 - **manifest.sha256** and **dataset.sha256** checksum files.
 
-## Why this benchmark matters
-
-This benchmark is designed to reduce shortcutting by requiring models to solve a coupled reasoning problem rather than classify 
-a familiar static pattern.
-
-A correct answer requires all of the following:
-
-- exact reflection reasoning against walls and currently visible obstacles,
-- correct application of visibility transitions after bounce counts,
-- filtering to the visible subset at the queried moment,
-- identifying which visible objects overlap,
-- sorting those objects into bottom-to-top layers.
-
-Because the generator computes gold answers by exact simulation and rejects ambiguous or low-clarity worlds, 
-the resulting labels are precise and defensible.
-
 ## Reproducibility guarantees
 
 The generator is designed for repeatable dataset creation.
